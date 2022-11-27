@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "pan-os-docker"
+version = "0.1.0"
+description = "Docker container to help develop automation for Palo Alto Networks platforms"
+authors = ["Calvin Remsburg <cremsburg.dev@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+flake8 = "^5.0.4"
+invoke = "^1.7.3"
+python-dotenv = "^0.21.0"
+ipython = "^8.6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

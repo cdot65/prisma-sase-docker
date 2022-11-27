@@ -1,0 +1,5 @@
+pan-os-python==1.7.3
+xmltodict==0.13.0
+ipython==8.6.0
+lxml==4.9.1
+python-dotenv==0.21.0
