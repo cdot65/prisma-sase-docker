@@ -1,5 +1,15 @@
 # Configuration file for ipython.
-from IPython.terminal.prompts import Token
+from IPython.terminal.prompts import Prompts, Token
+
+
+class MyPrompt(Prompts):
+    def in_prompt_tokens(self, cli=None):
+        tokens = [(Token.Prompt, "λ  ")]
+        return tokens
+
+    def out_prompt_tokens(self):
+        tokens = [(Token.OutPrompt, "Φ  ")]
+        return tokens
 
 
 c = get_config()  # noqa
@@ -36,6 +46,7 @@ c.InteractiveShellApp.exec_lines = [
 c.InteractiveShell.xmode = "Context"
 c.InteractiveShell.banner1 = banner_start + banner_welcome + banner_env
 c.InteractiveShell.banner2 = banner_url + banner_user + banner_pass + banner_end
+c.TerminalInteractiveShell.prompts_class = MyPrompt
 c.TerminalInteractiveShell.confirm_exit = False
 c.TerminalInteractiveShell.editor = "vi"
 c.TerminalInteractiveShell.highlighting_style = "gruvbox-dark"
