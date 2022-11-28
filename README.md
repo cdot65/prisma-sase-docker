@@ -6,6 +6,12 @@
 
 The goal of this repository is to provide a Docker container for learning how to automate Palo Alto Networks products.
 
+If you would not like to build these images locally and feel comfortable using a pre-packaged version, simply run this command.
+
+```bash
+docker run -it --rm -w /home/python ghcr.io/cdot65/pan-os-docker:python ipython --profile=paloalto
+```
+
 ### Python
 
 Python environment is provided by the `pan-os-docker:python` container tag. Using this container image will provide you with an interactive Python environment with the following additions:
