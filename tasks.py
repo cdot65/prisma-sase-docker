@@ -35,90 +35,69 @@ PWD = os.getcwd()
 # ---------------------------------------------------------------------------
 # DOCKER CONTAINER BUILDS
 # ---------------------------------------------------------------------------
-@task
-def buildansible(context):
-    """Build our Ansible Docker image."""
-    context.run(
-        f"docker build -t {DOCKER_IMG}:{ANSIBLE_TAG} docker/ansible",
-    )
-
-
-@task
-def buildgolang(context):
-    """Build our Golang Docker image."""
-    context.run(
-        f"docker build -t {DOCKER_IMG}:{GOLANG_TAG} docker/golang",
-    )
-
-
-@task
-def buildpython(context):
-    """Build our Python Docker image."""
-    context.run(
-        f"docker build -t {DOCKER_IMG}:{PYTHON_TAG} docker/python",
-    )
-
-
-@task
-def buildterraform(context):
-    """Build our Terraform Docker image."""
-    context.run(
-        f"docker build -t {DOCKER_IMG}:{TERRAFORM_TAG} docker/terraform",
-    )
+@task(optional=["ansible", "go", "python", "terraform"])
+def build(context, ansible=None, go=None, python=None, terraform=None):
+    """Build our Docker images."""
+    if ansible:
+        context.run(
+            f"docker build -t {DOCKER_IMG}:{ANSIBLE_TAG} docker/ansible",
+        )
+    elif go:
+        context.run(
+            f"docker build -t {DOCKER_IMG}:{GOLANG_TAG} docker/golang",
+        )
+    elif python:
+        context.run(
+            f"docker build -t {DOCKER_IMG}:{PYTHON_TAG} docker/python",
+        )
+    elif terraform:
+        context.run(
+            f"docker build -t {DOCKER_IMG}:{TERRAFORM_TAG} docker/terraform",
+        )
+    else:
+        context.run("echo 'invoke build --ansible, --go, --python, or --terraform ?'")
 
 
 # ---------------------------------------------------------------------------
-# ANSIBLE
+# SHELL ACCESS
 # ---------------------------------------------------------------------------
-@task
-def ansible(context):
-    """Get access to the ansible within our container."""
-    context.run(
-        f'docker run -it --rm \
-            --mount type=bind,source="$(pwd)"/ansible,target=/home/ansible \
-            -w /home/ansible/ \
-            {DOCKER_IMG}:{ANSIBLE_TAG} ansible --version',
-        pty=True,
-    )
-
-
-@task
-def ansibleshell(context):
-    """Get access to the shell within our container."""
-    context.run(
-        f'docker run -it --rm \
-            --mount type=bind,source="$(pwd)"/ansible,target=/home/ansible \
-            -w /home/ansible/ \
-            {DOCKER_IMG}:{ANSIBLE_TAG} /bin/sh',
-        pty=True,
-    )
-
-
-# ---------------------------------------------------------------------------
-# GOLANG
-# ---------------------------------------------------------------------------
-@task
-def golang(context):
-    """Get access to the golang within our container."""
-    context.run(
-        f'docker run -it --rm \
-            --mount type=bind,source="$(pwd)"/golang,target=/home/golang \
-            -w /home/golang/ \
-            {DOCKER_IMG}:{GOLANG_TAG} go version',
-        pty=True,
-    )
-
-
-@task
-def golangshell(context):
-    """Get access to the shell within our golang container."""
-    context.run(
-        f'docker run -it --rm \
-            --mount type=bind,source="$(pwd)"/golang,target=/home/golang \
-            -w /home/golang/ \
-            {DOCKER_IMG}:{GOLANG_TAG} /bin/sh',
-        pty=True,
-    )
+@task(optional=["ansible", "go", "python", "terraform"])
+def shell(context, ansible=None, go=None, python=None, terraform=None):
+    """Get shell access to the container."""
+    if ansible:
+        context.run(
+            f'docker run -it --rm \
+                --mount type=bind,source="$(pwd)"/ansible,target=/home/ansible \
+                -w /home/ansible/ \
+                {DOCKER_IMG}:{ANSIBLE_TAG} /bin/sh',
+            pty=True,
+        )
+    elif go:
+        context.run(
+            f'docker run -it --rm \
+                --mount type=bind,source="$(pwd)"/golang,target=/home/golang \
+                -w /home/golang/ \
+                {DOCKER_IMG}:{GOLANG_TAG} /bin/sh',
+            pty=True,
+        )
+    elif python:
+        context.run(
+            f'docker run -it --rm \
+                --mount type=bind,source="$(pwd)"/python,target=/home/python \
+                -w /home/python/ \
+                {DOCKER_IMG}:{PYTHON_TAG} /bin/sh',
+            pty=True,
+        )
+    elif terraform:
+        context.run(
+            f'docker run -it --rm \
+                --mount type=bind,source="$(pwd)"/terraform,target=/home/terraform \
+                -w /home/terraform/ \
+                {DOCKER_IMG}:{TERRAFORM_TAG} /bin/sh',
+            pty=True,
+        )
+    else:
+        context.run("echo 'invoke shell --ansible, --go, --python, or --terraform ?'")
 
 
 # ---------------------------------------------------------------------------
@@ -132,17 +111,5 @@ def python(context):
             --mount type=bind,source="$(pwd)"/python,target=/home/python \
             -w /home/python/ \
             {DOCKER_IMG}:{PYTHON_TAG} ipython --profile=paloalto',
-        pty=True,
-    )
-
-
-@task
-def pythonshell(context):
-    """Get access to the shell within our container."""
-    context.run(
-        f'docker run -it --rm \
-            --mount type=bind,source="$(pwd)"/python,target=/home/python \
-            -w /home/python/ \
-            {DOCKER_IMG}:{PYTHON_TAG} /bin/sh',
         pty=True,
     )

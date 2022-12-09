@@ -15,5 +15,5 @@ LABEL build-date="20221126"
 # ---------------------------------------------------------------------------
 WORKDIR /home/golang
 RUN apk add git
-RUN git clone https://github.com/PaloAltoNetworks/pango.git
-
+# RUN git clone https://github.com/PaloAltoNetworks/pango.git
+RUN go get github.com/PaloAltoNetworks/pango
