@@ -8,7 +8,7 @@ class MyPrompt(Prompts):
         return tokens
 
     def out_prompt_tokens(self):
-        tokens = [(Token.OutPrompt, "Φ  ")]
+        tokens = [(Token.OutPrompt, "⮎  ")]
         return tokens
 
 
@@ -36,6 +36,7 @@ c.InteractiveShellApp.log_level = 20
 c.InteractiveShellApp.exec_lines = [
     "import os",
     "import xml.etree.ElementTree as ET",
+    "import xmltodict",
     "from dotenv import load_dotenv",
     "load_dotenv('/home/python/.env')",
     "PANURL = os.environ.get('PANURL', 'panorama.lab')",
