@@ -11,8 +11,11 @@ LABEL url="https://github.com/cdot65/pan-os-docker"
 LABEL build-date="20221126"
 
 # ---------------------------------------------------------------------------
-# Add and install python packages
+# Install dependencies and Python packages
 # ---------------------------------------------------------------------------
+RUN apk update
+RUN apk --no-cache add curl gcc g++ graphviz
+RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 ADD requirements.txt /var/tmp/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r /var/tmp/requirements.txt
