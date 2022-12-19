@@ -11,6 +11,14 @@ LABEL url="https://github.com/cdot65/pan-os-docker"
 LABEL build-date="20221126"
 
 # ---------------------------------------------------------------------------
+# Add Python packages
+# ---------------------------------------------------------------------------
+ADD requirements.txt /var/tmp/requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r /var/tmp/requirements.txt
+
+# ---------------------------------------------------------------------------
 # Setup environment
 # ---------------------------------------------------------------------------
 WORKDIR /home/ansible
+RUN ansible-galaxy collection install paloaltonetworks.panos
