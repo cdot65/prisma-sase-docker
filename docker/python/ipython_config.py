@@ -37,6 +37,8 @@ c.InteractiveShellApp.exec_lines = [
     "import os",
     "import xml.etree.ElementTree as ET",
     "import xmltodict",
+    "import pandas as pd",
+    "from tabulate import tabulate",
     "from dotenv import load_dotenv",
     "load_dotenv('/home/python/.env')",
     "PANURL = os.environ.get('PANURL', 'panorama.lab')",
