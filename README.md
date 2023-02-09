@@ -2,13 +2,18 @@
 
 [![N|Solid](./images/paloaltonetworks_logo.png)](https://www.paloaltonetworks.com/)
 
+- [prisma-sase-docker](#prisma-sase-docker)
+  - [`Overview`](#overview)
+    - [Python](#python)
+    - [Ansible](#ansible)
+
 ## `Overview`
 
 The goal of this repository is to provide Docker containers for learning how to automate Palo Alto Networks Prisma products.
 
 ### Python
 
-Python environment is provided by the `prisma-sase-docker:python` container tag. Using this container image will provide you with an interactive Python environment with the following additions:
+To use the Python container, you will use the `prisma-sase-docker:python` container tag. This container image will provide you with an interactive Python environment with the following additions:
 
 - Prisma Access SDK (`panapi`) loaded
 - Automatically form an authenticated session with Prisma upon container start
@@ -29,19 +34,42 @@ You can mount this file and gain access to container's Python REPL from the root
 docker run -it -v $(pwd)/python/config.yml:/root/.panapi/config.yml ghcr.io/cdot65/prisma-sase-docker:python ipython --profile=paloalto
 ```
 
-![invoke python](images/docker_prisma_python.png)
+![python](images/docker_prisma_python.png)
 
 ### Ansible
 
-An Ansible environment is provided by the `prisma-sase-docker:ansible` container tag. Using this container image will provide you with an interactive environment with the following additions:
+If you'd like to use the Ansible container, you will use the `prisma-sase-docker:ansible` container tag. Using this container image will provide you with an interactive environment with these features:
 
 - automatically provide the latest version of Prisma Access Ansible Collections
 - provide necessary Python SDK library and dependencies
 
-If you would like to execute Ansible playbooks within the your workstation's [ansible](./ansible/) directory, you will find them mounted at `/home/ansible` within the container's shell, which can be accessed with:
+There is no need for a `config.yml` file with Ansible because the authentication variables will need to be passed into the playbook instead of loading them at run time. There are many ways of getting variables into Ansible playbooks, but the easiest way is to use a `group_vars` file. Here is an example project directory structure:
+
+```shell
+ansible-project
+├── playbook.yaml
+├── ansible.cfg
+├── group_vars
+│   └── all
+│       └── authentication.yaml
+└── inventory.yaml
+```
+
+The `group_vars/all/authentication.yaml` file will contain the following:
+
+```yaml
+---
+client_id: "jennyjenny@8675309.iam.panserviceaccount.com"
+client_secret: "18675309-5309-5309-5309-86753095309"
+scope: "867530901"
+```
+
+It is _HIGHLY_ encouraged that you protect this file by encrypting it with Ansible Vault. You can learn more about Ansible Vault [here](docs/vault.md).
+
+To run the Ansible container, you will need to mount your project directory into the container and set the working directory to the project directory. Here is an example command:
 
 ```bash
 docker run -it --rm -v $(pwd):/ansible -w /ansible ghcr.io/cdot65/prisma-sase-docker:ansible
 ```
 
-![](images/docker_prisma_ansible.png)
+![ansible](images/docker_prisma_ansible.png)
