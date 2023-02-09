@@ -57,11 +57,7 @@ If you would not like to build this container locally and feel comfortable using
 
 ```bash
 # Container shell
-docker run -it --rm \
-    --mount type=bind,source="$(pwd)"/ansible/.vault_pass,target=/home/runner/.vault_pass \
-    --mount type=bind,source="$(pwd)"/ansible,target=/ansible \
-    -w /ansible \
-    ghcr.io/cdot65/prisma-sase-docker:ansible
+docker run -it --rm -v $(pwd):/ansible -w /ansible ghcr.io/cdot65/prisma-sase-docker:ansible
 ```
 
 ### Building the Python container
