@@ -4,14 +4,14 @@
 
 - [prisma-sase-docker](#prisma-sase-docker)
   - [`Overview`](#overview)
-    - [Python](#python)
-    - [Ansible](#ansible)
+    - [Python Container Image](#python-container-image)
+    - [Ansible Container Image](#ansible-container-image)
 
 ## `Overview`
 
 The goal of this repository is to provide Docker containers for learning how to automate Palo Alto Networks Prisma products.
 
-### Python
+### Python Container Image
 
 To use the Python container, you will use the `prisma-sase-docker:python` container tag. This container image will provide you with an interactive Python environment with the following additions:
 
@@ -36,7 +36,7 @@ docker run -it -v $(pwd)/python/config.yml:/root/.panapi/config.yml ghcr.io/cdot
 
 ![python](images/docker_prisma_python.png)
 
-### Ansible
+### Ansible Container Image
 
 If you'd like to use the Ansible container, you will use the `prisma-sase-docker:ansible` container tag. Using this container image will provide you with an interactive environment with these features:
 
