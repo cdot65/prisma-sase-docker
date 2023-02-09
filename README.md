@@ -74,4 +74,4 @@ Start your container and jump into the Python interpreter with:
 invoke python
 ```
 
-![invoke python](images/invoke_python.png)
+![invoke python](images/docker_prisma_python.png)
