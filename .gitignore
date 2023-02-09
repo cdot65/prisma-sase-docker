@@ -1,2 +1,4 @@
 *.env
-*.pre-python.xml
+*.pre-python.xmlconfig.yml
+*config.yml
+*authentication.yaml

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pan-os-docker"
+name = "prisma-sase-docker"
 version = "0.1.0"
 description = "Docker container to help develop automation for Palo Alto Networks platforms"
 authors = ["Calvin Remsburg <cremsburg.dev@gmail.com>"]

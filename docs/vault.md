@@ -1,18 +1,10 @@
 # Securing your secrets
 
-Please make sure to manage your sensative information carfully.
+Please make sure to manage your sensitive information carefully.
 
 While the modules support the ability to pass in secret information in clear text, this should never be done in a production environment.
 
-Below are some safer alternatives to storing sensative information.
-
-## Manage your credientials as an environmentals
-
-```sh
-export PANOS_USERNAME=bigbird
-export PANOS_PASSWORD=sesamestree123
-export PANORAMA_API_TOKEN=supersecrettoken123
-```
+Below are some safer alternatives to storing sensitive information.
 
 ## Using Ansible Vault
 
@@ -69,8 +61,7 @@ Update your playbook to import your vault with `vars_files` argument. This needs
 - hosts: localhost
   vars_files:
     - vault.yml
-  tasks:
-    ...
+  tasks: ...
 ```
 
 #### Storing your vault in `group_vars`

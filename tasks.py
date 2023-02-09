@@ -18,7 +18,7 @@ from invoke import task
 # ---------------------------------------------------------------------------
 # DOCKER PARAMETERS
 # ---------------------------------------------------------------------------
-DOCKER_IMG = "ghcr.io/cdot65/pan-os-docker"
+DOCKER_IMG = "ghcr.io/cdot65/prisma-sase-docker"
 
 PYTHON_TAG = "python"
 ANSIBLE_TAG = "ansible"
@@ -67,9 +67,10 @@ def shell(context, ansible=None, go=None, python=None, terraform=None):
     if ansible:
         context.run(
             f'docker run -it --rm \
-                --mount type=bind,source="$(pwd)"/ansible,target=/home/ansible \
-                -w /home/ansible/ \
-                {DOCKER_IMG}:{ANSIBLE_TAG} /bin/sh',
+                --mount type=bind,source="$(pwd)"/ansible/.vault_pass,target=/home/runner/.vault_pass \
+                --mount type=bind,source="$(pwd)"/ansible,target=/ansible \
+                -w /ansible \
+                {DOCKER_IMG}:{ANSIBLE_TAG}',
             pty=True,
         )
     elif go:
@@ -83,6 +84,7 @@ def shell(context, ansible=None, go=None, python=None, terraform=None):
     elif python:
         context.run(
             f'docker run -it --rm \
+                --mount type=bind,source="$(pwd)"/python/config.yml,target=/root/.panapi/config.yml \
                 --mount type=bind,source="$(pwd)"/python,target=/home/python \
                 -w /home/python/ \
                 {DOCKER_IMG}:{PYTHON_TAG} /bin/sh',
@@ -105,9 +107,10 @@ def shell(context, ansible=None, go=None, python=None, terraform=None):
 # ---------------------------------------------------------------------------
 @task
 def python(context):
-    """Get access to the bpython REPL within our container."""
+    """Get access to the ipython REPL within our container."""
     context.run(
         f'docker run -it --rm \
+            --mount type=bind,source="$(pwd)"/python/config.yml,target=/root/.panapi/config.yml \
             --mount type=bind,source="$(pwd)"/python,target=/home/python \
             -w /home/python/ \
             {DOCKER_IMG}:{PYTHON_TAG} ipython --profile=paloalto',

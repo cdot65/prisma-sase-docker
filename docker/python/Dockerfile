@@ -1,20 +1,20 @@
-FROM python:3.10-alpine
+FROM python:3.11-alpine
 
 # ---------------------------------------------------------------------------
 # Metadata
 # ---------------------------------------------------------------------------
-LABEL name="ghcr.io/cdot65/pan-os-docker"
+LABEL name="ghcr.io/cdot65/prisma-sase-docker"
 LABEL maintainer="cremsburg.dev@gmail.com"
 LABEL description="Python container for Palo Alto Networks SDK."
 LABEL license="Apache 2.0"
-LABEL url="https://github.com/cdot65/pan-os-docker"
+LABEL url="https://github.com/cdot65/prisma-sase-docker"
 LABEL build-date="20221126"
 
 # ---------------------------------------------------------------------------
 # Install dependencies and Python packages
 # ---------------------------------------------------------------------------
 RUN apk update
-RUN apk --no-cache add curl gcc g++ graphviz
+RUN apk --no-cache add curl gcc g++ graphviz git
 RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 ADD requirements.txt /var/tmp/requirements.txt
 RUN pip install --upgrade pip
