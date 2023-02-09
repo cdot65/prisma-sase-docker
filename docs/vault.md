@@ -8,16 +8,16 @@ Below are some safer alternatives to storing sensitive information.
 
 ## Using Ansible Vault
 
-Create a file to store your secret information, this will serve as our Ansible Vault.
+Create a file to store your secret information, this will serve as our Ansible Vault. There is an example already found in the `group_vars/all` directory, just remove the `.example` extension.
 
 ! The file name does not need to be called `vault.yaml`, like in my example. Feel free to name it what you will, but it should be in a YAML data structure.
 
 `$ vim vault.yaml`
 
 ```yaml
-panos_username: bigbird
-panos_password: sesamestree123
-panorama_api_token: supersecrettoken123
+client_id: "jennyjenny@8675309.iam.panserviceaccount.com"
+client_secret: "18675309-5309-5309-5309-86753095309"
+scope: "867530901"
 ```
 
 ### Working with your Ansible Vault
