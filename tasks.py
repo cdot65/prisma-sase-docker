@@ -73,14 +73,6 @@ def shell(context, ansible=None, go=None, python=None, terraform=None):
                 {DOCKER_IMG}:{ANSIBLE_TAG}',
             pty=True,
         )
-    elif go:
-        context.run(
-            f'docker run -it --rm \
-                --mount type=bind,source="$(pwd)"/golang,target=/home/golang \
-                -w /home/golang/ \
-                {DOCKER_IMG}:{GOLANG_TAG} /bin/sh',
-            pty=True,
-        )
     elif python:
         context.run(
             f'docker run -it --rm \
@@ -88,14 +80,6 @@ def shell(context, ansible=None, go=None, python=None, terraform=None):
                 --mount type=bind,source="$(pwd)"/python,target=/home/python \
                 -w /home/python/ \
                 {DOCKER_IMG}:{PYTHON_TAG} /bin/sh',
-            pty=True,
-        )
-    elif terraform:
-        context.run(
-            f'docker run -it --rm \
-                --mount type=bind,source="$(pwd)"/terraform,target=/home/terraform \
-                -w /home/terraform/ \
-                {DOCKER_IMG}:{TERRAFORM_TAG} /bin/sh',
             pty=True,
         )
     else:
