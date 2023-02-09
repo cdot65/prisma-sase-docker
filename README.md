@@ -11,67 +11,35 @@ The goal of this repository is to provide Docker containers for learning how to 
 Python environment is provided by the `prisma-sase-docker:python` container tag. Using this container image will provide you with an interactive Python environment with the following additions:
 
 - Prisma Access SDK (`panapi`) loaded
-- all Python files stored within the [python](./python/) mounted at `/home/python`
+- Automatically form an authenticated session with Prisma upon container start
 
-You can gain access to container's Python REPL from the root of this project by typing the following command:
+There is a requirement for a `config.yml` file on your machine, this file is used to authenticate with Prisma Access and is passed into our container during the `docker run` command. An example of this file can be found below.
 
-```bash
-invoke python
+```yaml
+---
+client_id: jennyjenny@8008675309.iam.panserviceaccount.com
+client_secret: 18675309-abcd-abcd-abcd-18008675309
+scope: profile tsg_id:8008675309 email
+token_url: https://auth.apps.paloaltonetworks.com/am/oauth2/access_token
 ```
 
-If you would like to execute scripts within the your workstation's [python](./python/) directory, you will find them mounted at `/home/python` within the container's shell, which can be accessed with:
+You can mount this file and gain access to container's Python REPL from the root of this project by typing the following command:
 
 ```bash
-invoke shell --python
+docker run -it -v $(pwd)/python/config.yml:/root/.panapi/config.yml ghcr.io/cdot65/prisma-sase-docker:python ipython --profile=paloalto
 ```
 
-If you would not like to build this container locally and feel comfortable using a pre-packaged version, simply run the appropriate command below.
-
-```bash
-# Python REPL
-docker run -it --rm \
-    -w /home/python \
-    ghcr.io/cdot65/prisma-sase-docker:python ipython --profile=paloalto
-
-# Container shell
-docker run -it --rm \
-    -v "$(pwd)"/python:/home/python \
-    -w /home/python/ \
-    ghcr.io/cdot65/prisma-sase-docker:python /bin/sh
-```
+![invoke python](images/docker_prisma_python.png)
 
 ### Ansible
 
-An Ansible environment is provided by the `prisma-sase-docker:ansible` container tag. Using this container image will provide you with an interactive Python environment with the following additions:
+An Ansible environment is provided by the `prisma-sase-docker:ansible` container tag. Using this container image will provide you with an interactive environment with the following additions:
 
-- automatically provide the latest Ansible Collections
+- automatically provide the latest version of Prisma Access Ansible Collections
 - provide necessary Python SDK library and dependencies
 
 If you would like to execute Ansible playbooks within the your workstation's [ansible](./ansible/) directory, you will find them mounted at `/home/ansible` within the container's shell, which can be accessed with:
 
 ```bash
-invoke shell --ansible
-```
-
-If you would not like to build this container locally and feel comfortable using a pre-packaged version, simply run the command below.
-
-```bash
-# Container shell
 docker run -it --rm -v $(pwd):/ansible -w /ansible ghcr.io/cdot65/prisma-sase-docker:ansible
 ```
-
-### Building the Python container
-
-Build your Python container with the following invoke command:
-
-```bash
-invoke build --python
-```
-
-Start your container and jump into the Python interpreter with:
-
-```bash
-invoke python
-```
-
-![invoke python](images/docker_prisma_python.png)
