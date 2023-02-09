@@ -4,7 +4,7 @@
 
 ## `Overview`
 
-The goal of this repository is to provide a Docker container for learning how to automate Palo Alto Networks Prisma products.
+The goal of this repository is to provide Docker containers for learning how to automate Palo Alto Networks Prisma products.
 
 ### Python
 
