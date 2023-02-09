@@ -43,3 +43,5 @@ If you would like to execute Ansible playbooks within the your workstation's [an
 ```bash
 docker run -it --rm -v $(pwd):/ansible -w /ansible ghcr.io/cdot65/prisma-sase-docker:ansible
 ```
+
+![](images/docker_prisma_ansible.png)
