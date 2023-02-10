@@ -1,0 +1,5 @@
+---
+client_id: jenny-jenny@8008675309.iam.panserviceaccount.com
+client_secret: 8008675309-5309-5309-5309-8008675309
+scope: profile tsg_id:8675309 email
+token_url: https://auth.apps.paloaltonetworks.com/am/oauth2/access_token
