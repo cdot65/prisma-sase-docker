@@ -1,4 +1,0 @@
-all:
-  hosts:
-    prisma:
-      ansible_host: "sase.paloaltonetworks.com"

@@ -97,13 +97,16 @@ If you'd like to use the Ansible container, you will use the `prisma-sase-docker
 There is no need for a `config.yml` file with Ansible because the authentication variables will need to be passed into the playbook instead of loading them at run time. There are many ways of getting variables into Ansible playbooks, but the easiest way is to use a `group_vars` file. Here is an example project directory structure:
 
 ```shell
-ansible-project
-├── playbook.yaml
+ansible
+├── addresses.yaml
 ├── ansible.cfg
 ├── group_vars
 │   └── all
-│       └── authentication.yaml
-└── inventory.yaml
+│       ├── addresses.yaml
+│       ├── authentication.yaml
+│       └── tags.yaml
+├── inventory.yaml
+└── tags.yaml
 ```
 
 1. Rename `authentication.yaml.example` file in the directory (`examples/ansible/group_vars/all/authentication.yaml.example`) to `authentication.yaml`
