@@ -93,10 +93,8 @@ def shell(context, ansible=None, go=None, python=None, terraform=None):
 def python(context):
     """Get access to the ipython REPL within our container."""
     context.run(
-        f'docker run -it --rm \
-            --mount type=bind,source="$(pwd)"/python/config.yml,target=/root/.panapi/config.yml \
-            --mount type=bind,source="$(pwd)"/python,target=/home/python \
-            -w /home/python/ \
-            {DOCKER_IMG}:{PYTHON_TAG} ipython --profile=paloalto',
+        f"docker run -it --rm \
+            --mount type=bind,source=$HOME/.panapi/config.yml,target=/root/.panapi/config.yml \
+            {DOCKER_IMG}:{PYTHON_TAG} ipython --profile=paloalto",
         pty=True,
     )
