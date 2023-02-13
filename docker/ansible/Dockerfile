@@ -1,4 +1,4 @@
-FROM ghcr.io/cdot65/ansible-ee-prismasase:0.1.2
+FROM ghcr.io/cdot65/ansible-ee-prismasase:0.1.4
 
 # ---------------------------------------------------------------------------
 # Metadata
