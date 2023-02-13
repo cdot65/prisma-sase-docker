@@ -98,11 +98,11 @@ There is no need for a `config.yml` file with Ansible because the authentication
 
 ```shell
 ansible
-├── addresses.yaml
+├── address.yaml
 ├── ansible.cfg
 ├── group_vars
 │   └── all
-│       ├── addresses.yaml
+│       ├── address.yaml
 │       ├── authentication.yaml
 │       └── tags.yaml
 ├── inventory.yaml
